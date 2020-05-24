@@ -37,11 +37,13 @@ where
         .collect()
 }
 
+#[allow(unused_macros)]
 macro_rules! parse_line {
     [$( $x:tt : $t:ty ),+] => {
         //declare variables
         $( let $x: $t; )+
         {
+            use std::str::FromStr;
             // read
             let mut buf = String::new();
             std::io::stdin().read_line(&mut buf).unwrap();
