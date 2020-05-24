@@ -56,3 +56,5 @@ macro_rules! parse_line {
         }
     };
 }
+
+fn main() {}
