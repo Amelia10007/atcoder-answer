@@ -48,15 +48,14 @@ fn main() {
     let mut nums = vec![1; n];
 
     loop {
-        let mut score = 0;
-        for &query in queries.iter() {
-            if nums[query.b - 1] - nums[query.a - 1] == query.c {
-                score += query.d;
-            }
-        }
-        if max_score < score {
-            max_score = score;
-        }
+        let score = queries
+            .iter()
+            .filter(|&&Query { a, b, c, .. }| nums[b - 1] - nums[a - 1] == c)
+            .map(|&Query { d, .. }| d)
+            .sum::<usize>();
+
+        max_score = std::cmp::max(max_score, score);
+
         if next_nums(&mut nums, m).is_none() {
             break;
         }
